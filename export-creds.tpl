@@ -1,0 +1,4 @@
+export azureSubId=
+export azureServicePrincipalTenantId=
+export azureServicePrincipalClientId=
+export azureServicePrincipalPassword=
