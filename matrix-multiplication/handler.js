@@ -4,8 +4,8 @@ const Influx = require('influx');
 const moment = require('moment');
 
 const influx = new Influx.InfluxDB({
-    host: 'b1fa2e3b.ngrok.io',
-    port: 80,
+    host: 'azure-functions-influx.westeurope.cloudapp.azure.com',
+    port: 8086,
     database: 'azure_lambda_db',
     schema: [
         {

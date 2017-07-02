@@ -7,12 +7,12 @@ const uuid = require("uuid");
 
 
 const influx = new Influx.InfluxDB({
-    host: '8ee4f66f.ngrok.io',
-    port: 80,
+    host: 'azure-functions-influx.westeurope.cloudapp.azure.com',
+    port: 8086,
     database: 'azure_lambda_db',
     schema: [
         {
-            measurement: 'response_times',
+            measurement: 'write_to_file',
             fields: {
                 duration: Influx.FieldType.INTEGER
             },
