@@ -1,0 +1,17 @@
+service: cloud-functions-research-snowak
+
+provider:
+  name: azure
+  location: West US
+
+plugins:
+  - serverless-azure-functions
+
+
+functions:
+  matrixMultiplication:
+    handler: handler.matrixMultiplication
+    events:
+      - http: true
+        x-azure-settings:
+            authLevel : anonymous
