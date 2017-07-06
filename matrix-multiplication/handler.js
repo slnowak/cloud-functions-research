@@ -1,47 +1,9 @@
 'use strict';
 
-const Influx = require('influx');
-const moment = require('moment');
-
-const influx = new Influx.InfluxDB({
-    host: 'azure-functions-influx.westeurope.cloudapp.azure.com',
-    port: 8086,
-    database: 'azure_lambda_db',
-    schema: [
-        {
-            measurement: 'matrix_multiplication',
-            fields: {
-                duration: Influx.FieldType.INTEGER
-            },
-            tags: ['invocation']
-        }
-    ]
-});
-
 module.exports.matrixMultiplication = (context, req) => {
-    const start = moment().valueOf();
-
-    Promise
-        .resolve(main(req))
-        .then(measureExecution(start))
-        .then(reportToInflux(influx, context.invocationId))
-        .then(() => context.done());
+    main(req);
+    context.done();
 };
-
-function measureExecution(start) {
-    return () => {
-        let end = moment().valueOf();
-        return end - start;
-    };
-}
-
-function reportToInflux(influx, invocation) {
-    return duration => influx.writePoints([{
-        measurement: 'matrix_multiplication',
-        fields: {duration},
-        tags: {invocation}
-    }]);
-}
 
 function multiplyRowAndColumn(row, column) {
     // assume same length of row and column
