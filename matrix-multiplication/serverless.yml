@@ -1,4 +1,4 @@
-service: cloud-functions-research-snowak
+service: cloud-functions-research-snowak3
 
 provider:
   name: azure

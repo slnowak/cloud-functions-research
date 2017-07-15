@@ -1,9 +1,52 @@
 'use strict';
 
+const Influx = require('influx');
+
+const influx = new Influx.InfluxDB({
+    host: '52.174.187.47',
+    port: 8086,
+    database: 'azure_lambda_db',
+    schema: [
+        {
+            measurement: 'matrix_multiplication',
+            fields: {
+                duration: Influx.FieldType.INTEGER,
+                host: Influx.FieldType.STRING
+            }
+        }
+    ]
+});
+
 module.exports.matrixMultiplication = (context, req) => {
-    main(req);
+    const start = timeInMillis();
+
+    Promise
+        .resolve(main(req))
+        .then(measureExecution(start))
+        .then(reportToInflux(influx, process.env.WEBSITE_INSTANCE_ID));
+
+    // don't wait for influx response
     context.done();
 };
+
+function measureExecution(start) {
+    return () => {
+        const end = timeInMillis();
+        return {start, end};
+    };
+}
+
+function timeInMillis() {
+    return (new Date).getTime();
+}
+
+function reportToInflux(influx, host) {
+    return res => influx.writePoints([{
+        measurement: 'matrix_multiplication',
+        fields: {duration: res.end - res.start, host},
+        timestamp: res.start
+    }], {precision: 'ms'});
+}
 
 function multiplyRowAndColumn(row, column) {
     // assume same length of row and column

@@ -9,5 +9,8 @@
   ],
   "devDependencies": {
     "serverless-azure-functions": "*"
+  },
+  "dependencies": {
+    "influx": "latest"
   }
 }

@@ -8,29 +8,17 @@ import scala.language.postfixOps
 
 class MultiplyMatricesScenario extends Simulation {
 
-  private val httpConf = http.baseURL("https://cloud-functions-research-snowak.azurewebsites.net")
-
+  private val httpConf = http.baseURL("http://cloud-functions-research-snowak3.azurewebsites.net")
   private val matrixMultiplicationScenario = scenario("Multiply matrices")
     .exec(
       http("POST /api/matrixMultiplication")
         .post("/api/matrixMultiplication")
-        .body(StringBody("10"))
+        .body(StringBody("100"))
     )
 
-  private val matrixMultiplicationScenarioCfg = matrixMultiplicationScenario
-    .inject(constantUsersPerSec(100) during (3000 seconds))
-    .protocols(httpConf)
-
-  setUp(matrixMultiplicationScenarioCfg).throttle(
-    reachRps(50) in (1 minute),
-    holdFor(1 minutes),
-    jumpToRps(100),
-    holdFor(1 minutes),
-    jumpToRps(200),
-    holdFor(1 minutes),
-    jumpToRps(500),
-    holdFor(1 minutes),
-    jumpToRps(1000),
-    holdFor(1 minutes)
+  private val scenarioCfg = matrixMultiplicationScenario.inject(
+    rampUsersPerSec(10) to 500 during (1 hour)
   )
+
+  setUp(scenarioCfg).protocols(httpConf)
 }
