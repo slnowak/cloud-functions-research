@@ -3,7 +3,7 @@
 const Influx = require('influx');
 
 const influx = new Influx.InfluxDB({
-    host: '52.174.187.47',
+    host: 'cloud-functions-research-influx.westeurope.cloudapp.azure.com',
     port: 8086,
     database: 'azure_lambda_db',
     schema: [
