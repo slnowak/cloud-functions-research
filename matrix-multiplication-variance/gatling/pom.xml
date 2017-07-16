@@ -53,7 +53,7 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <simulationClass>pl.edu.agh.azure.matrix.MultiplyMatricesScenario</simulationClass>
+                            <simulationClass>pl.edu.agh.azure.matrix.MultiplyMatricesHourlyScenario</simulationClass>
                         </configuration>
                     </execution>
                 </executions>
