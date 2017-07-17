@@ -12,7 +12,8 @@ const influx = new Influx.InfluxDB({
             fields: {
                 duration: Influx.FieldType.INTEGER,
                 host: Influx.FieldType.STRING
-            }
+            },
+            tags: []
         }
     ]
 });

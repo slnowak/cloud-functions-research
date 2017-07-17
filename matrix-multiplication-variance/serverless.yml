@@ -1,4 +1,4 @@
-service: cloud-functions-research-variance
+service: cloud-functions-research-variance2
 
 provider:
   name: azure
