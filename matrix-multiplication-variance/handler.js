@@ -8,7 +8,7 @@ const influx = new Influx.InfluxDB({
     database: 'azure_lambda_db',
     schema: [
         {
-            measurement: 'matrix_multiplication',
+            measurement: 'matrix_multiplication_variance',
             fields: {
                 duration: Influx.FieldType.INTEGER,
                 host: Influx.FieldType.STRING
@@ -43,7 +43,7 @@ function timeInMillis() {
 
 function reportToInflux(influx, host) {
     return res => influx.writePoints([{
-        measurement: 'matrix_multiplication',
+        measurement: 'matrix_multiplication_variance',
         fields: {duration: res.end - res.start, host},
         timestamp: res.start
     }], {precision: 'ms'});
