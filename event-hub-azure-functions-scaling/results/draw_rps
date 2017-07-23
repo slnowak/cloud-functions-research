@@ -1,0 +1,9 @@
+set term pngcairo size 1024,768
+set output 'rps.png'
+set style data linespoints
+set datafile separator ";"
+set xdata time
+set timefmt "%Y-%m-%dT%H:%M:%S"
+set xlabel "Timestamp"
+set ylabel "Requests per second"
+plot "rps.csv" using 2:3 title 'RPS' with lines
