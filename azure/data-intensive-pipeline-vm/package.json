@@ -1,0 +1,15 @@
+{
+  "name": "azure-nodejs",
+  "version": "1.0.0",
+  "description": "Azure Functions sample for the Serverless framework",
+  "main": "handler.js",
+  "keywords": [
+    "azure",
+    "serverless"
+  ],
+  "dependencies": {
+    "influx": "latest",
+    "uuid": "latest",
+    "fs": "latest"
+  }
+}
