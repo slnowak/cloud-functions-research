@@ -1,0 +1,9 @@
+{
+  "name": "cloud-functions-research-snowak",
+  "version": "1.0.0",
+  "main": "handler.js",
+  "dependencies": {
+    "influx": "latest",
+    "uuid": "latest"
+  }
+}
