@@ -1,9 +1,0 @@
-set term pngcairo size 1024,768
-set output 'hosts.png'
-set style data linespoints
-set datafile separator ";"
-set xdata time
-set timefmt "%Y-%m-%dT%H:%M:%S"
-set xlabel "Timestamp"
-set ylabel "Number of hosts"
-plot "hosts.csv" using 2:3 title 'Number of hosts per second' with lines
