@@ -1,0 +1,8 @@
+{
+  "name": "cloud-functions-research-variance",
+  "version": "1.0.0",
+  "main": "handler.js",
+  "dependencies": {
+    "influx": "latest"
+  }
+}
