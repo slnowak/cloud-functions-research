@@ -11,6 +11,7 @@ geom_line(aes(y = Value)) +
 theme_bw() +
 scale_x_datetime(labels = date_format("%H:%M"), breaks = pretty_breaks(n=10)) +
 scale_y_continuous(breaks=pretty_breaks(n=10)) +
-labs(x = "Time", y = "RPS")
+labs(x = "Czas (hh:mm)", y = "RPS") +
+ggtitle("Ilość zapytań na sekunde")
 
 

@@ -10,10 +10,11 @@ ggplot(data=dat, aes(time)) +
 theme_bw() +
 scale_x_datetime(labels = date_format("%H:%M"), breaks = pretty_breaks(n=10)) +
 scale_y_continuous(breaks=pretty_breaks(n=10)) +
-labs(x = "Time", y = "Latency [ms]", color = "Percentiles") +
+labs(x = "Time", y = "Czas wykonania (ms)", color = "Percentyle") +
 geom_line(aes(y = p50, color = "p50")) +
 geom_line(aes(y = p75, color = "p75")) +
 geom_line(aes(y = p95, color = "p95")) +
-geom_line(aes(y = p99, color = "p99"))
+geom_line(aes(y = p99, color = "p99")) +
+ggtitle("p50, p75, p95, p99 czasu wykonania funkcji")
 
 
