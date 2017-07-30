@@ -1,7 +1,7 @@
 library("ggplot2")
 library("scales")
 
-png(filename="hosts.png", width=1280, height=1024)
+png(filename="hosts.png", width=640, height=480)
 
 dat = read.csv("hosts.csv", sep=';')
 dat$Time = as.POSIXct(dat$Time, format = "%Y-%m-%dT%H:%M:%S")

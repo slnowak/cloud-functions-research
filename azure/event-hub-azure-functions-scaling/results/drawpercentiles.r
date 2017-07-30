@@ -1,7 +1,7 @@
 library("ggplot2")
 library("scales")
 
-png(filename="percentiles.png", width=1280, height=1024)
+png(filename="percentiles.png", width=640, height=480)
 
 dat = read.csv("percentiles.csv")
 dat$time = as.POSIXct(dat$time, format = "%Y-%m-%dT%H:%M:%S")
