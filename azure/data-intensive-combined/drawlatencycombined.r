@@ -1,7 +1,7 @@
 library("ggplot2")
 library("scales")
 
-png(filename="latency.png", width=640, height=480)
+png(filename="azure-dataintensive-latency.png", width=640, height=480)
 
 dat = read.csv("combined.csv")
 dat$time_2 = as.POSIXct(dat$time_2, format = "%Y-%m-%dT%H:%M:%SZ")

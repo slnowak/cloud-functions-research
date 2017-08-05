@@ -1,7 +1,7 @@
 library("ggplot2")
 library("scales")
 
-png(filename="hosts.png", width=640, height=480)
+png(filename="azure-http-hosts.png", width=640, height=480)
 
 dat = read.csv("hosts.csv")
 dat$time = as.POSIXct(dat$time, format = "%Y-%m-%dT%H:%M:%SZ")
@@ -14,8 +14,6 @@ geom_line(colour="black", size=0.5) +
    theme(plot.margin = unit(c(1,1,1,1), "cm")) +
    labs(x="Czas (hh:mm)") +
    labs(y="Liczba maszyn wirtualnych") +
-   geom_area(aes(y=count)) +
-ggtitle("Liczba maszyn wirtualnych, na których uruchamiane są funkcje")
-
+   geom_area(aes(y=count))
 
 
