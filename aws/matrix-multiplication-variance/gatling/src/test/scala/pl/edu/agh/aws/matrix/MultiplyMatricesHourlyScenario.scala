@@ -9,18 +9,16 @@ import scala.language.postfixOps
 class MultiplyMatricesHourlyScenario extends Simulation {
 
   private val httpConf = http.baseURL("https://by48gw011j.execute-api.eu-west-1.amazonaws.com")
-  private val matrixMultiplicationScenario = scenario("Multiply matrices").repeat(24) {
-    exec(
+  private val matrixMultiplicationScenario = scenario("Multiply matrices")
+    .exec(
       http("POST /dev/multiplication")
         .post("/dev/multiplication")
         .body(StringBody("100"))
     )
-  }
 
   private val scenarioCfg = matrixMultiplicationScenario.inject(
-    constantUsersPerSec(10) during (10 minutes),
-    nothingFor (50 minutes)
+    constantUsersPerSec(10) during (10 minutes)
   )
 
-  setUp(scenarioCfg).protocols(httpConf)
+  setUp(scenarioCfg).protocols(httpConf).maxDuration(10 minutes)
 }
