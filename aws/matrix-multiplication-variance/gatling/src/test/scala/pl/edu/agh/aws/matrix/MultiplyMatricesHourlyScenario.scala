@@ -1,4 +1,4 @@
-package pl.edu.agh.azure.matrix
+package pl.edu.agh.aws.matrix
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
@@ -8,11 +8,11 @@ import scala.language.postfixOps
 
 class MultiplyMatricesHourlyScenario extends Simulation {
 
-  private val httpConf = http.baseURL("http://cloud-functions-research-variance.azurewebsites.net")
+  private val httpConf = http.baseURL("https://by48gw011j.execute-api.eu-west-1.amazonaws.com")
   private val matrixMultiplicationScenario = scenario("Multiply matrices").repeat(24) {
     exec(
-      http("POST /api/matrixMultiplication")
-        .post("/api/matrixMultiplication")
+      http("POST /dev/multiplication")
+        .post("/dev/multiplication")
         .body(StringBody("100"))
     )
   }

@@ -17,8 +17,7 @@ const influx = new Influx.InfluxDB({
     ]
 });
 
-
-module.exports.matrixMultiplication = (event, context, callback) => {
+module.exports.matrixMultiplicationVariance = (event, context, callback) => {
     const start = timeInMillis();
 
     Promise
@@ -110,11 +109,11 @@ function multiplyMatrix(matrixA, matrixB) {
     return result;
 }
 
-function main(body) {
+function main(req) {
     let seed = 123;
     const value_min = 0;
     const value_max = 101;
-    const size = parseInt(body);
+    const size = parseInt(req.body);
 
     const matrix = createRandomMatrix(size, seed, value_min, value_max);
     seed = 2 * seed;
