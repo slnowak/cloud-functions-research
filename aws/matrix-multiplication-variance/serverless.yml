@@ -1,15 +1,15 @@
-service: cloud-functions-research-variance
+service: cloud-functions-research-v
 
 provider:
   name: aws
   runtime: nodejs6.10
   region: eu-west-1
 
-
-
 functions:
-  matrixMultiplication:
-    handler: handler.matrixMultiplication
+  matrixMultiplicationVariance:
+    handler: handler.matrixMultiplicationVariance
+    timeout: 120
+    memorySize: 1536
     events:
       - http:
           path: multiplication
