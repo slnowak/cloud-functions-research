@@ -4,7 +4,7 @@ from dateutil import parser
 hours = []
 values = []
 
-with open('percentiles.csv') as csvfile:
+with open('variance_aws.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     for row in readCSV:
     	if row[1] == "time":
@@ -23,7 +23,7 @@ for h in values:
 	print len(h["values"])
 
 csvValues = []
-for i in range(0, 2597):
+for i in range(0, 5950):
     rows = []
     for h in values:
         rows.append(h["values"][i])
