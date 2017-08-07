@@ -1,9 +1,9 @@
 library("ggplot2")
 library("scales")
 
-png(filename="perctest.png", width=1280, height=1024)
+png(filename="perc.png", width=640, height=480)
 
-dat = read.csv("percentiles.csv")
+dat = read.csv("percentiles_aws.csv")
 dat$time = as.POSIXct(dat$time, format = "%Y-%m-%dT%H:%M:%SZ")
 
 ggplot(data=dat, aes(time)) +

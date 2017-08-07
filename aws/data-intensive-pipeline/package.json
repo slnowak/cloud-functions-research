@@ -1,0 +1,9 @@
+{
+  "name": "cloud-functions-research-data",
+  "version": "1.0.0",
+  "main": "handler.js",
+  "dependencies": {
+    "influx": "latest",
+    "aws-sdk": "latest"
+  }
+}
