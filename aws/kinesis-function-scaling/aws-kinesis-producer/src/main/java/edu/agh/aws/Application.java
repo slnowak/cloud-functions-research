@@ -18,7 +18,7 @@ public class Application {
 
     public static void main(String[] args) {
         IntStream
-                .range(0, 40)
+                .range(0, 200)
                 .forEach(i -> kinesisQueue.push(chunk));
     }
 

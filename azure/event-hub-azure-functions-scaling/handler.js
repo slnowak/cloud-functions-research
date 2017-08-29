@@ -8,7 +8,7 @@ const influx = new Influx.InfluxDB({
     database: 'azure_lambda_db',
     schema: [
         {
-            measurement: 'matrix_multiplication',
+            measurement: 'eh_matrix_multiplication',
             fields: {
                 duration: Influx.FieldType.INTEGER,
                 host: Influx.FieldType.STRING
@@ -18,11 +18,13 @@ const influx = new Influx.InfluxDB({
     ]
 });
 
-module.exports.matrixMultiplication = (context, req) => {
+module.exports.matrixMultiplication = (context, eventHubMessages) => {
     const start = timeInMillis();
 
+    context.log('size: ' + eventHubMessages.length);
+
     Promise
-        .resolve(main(req))
+        .resolve(main(eventHubMessages))
         .then(measureExecution(start))
         .then(reportToInflux(influx, process.env.WEBSITE_INSTANCE_ID));
 
@@ -43,7 +45,7 @@ function timeInMillis() {
 
 function reportToInflux(influx, host) {
     return res => influx.writePoints([{
-        measurement: 'matrix_multiplication',
+        measurement: 'eh_matrix_multiplication',
         fields: {duration: res.end - res.start, host},
         timestamp: res.start
     }], {precision: 'ms'});
@@ -104,14 +106,16 @@ function multiplyMatrix(matrixA, matrixB) {
     return result;
 }
 
-function main(req) {
+function main(eventHubMessages) {
     let seed = 123;
     const value_min = 0;
     const value_max = 101;
-    const size = parseInt(req.body);
+    const size = 100;
 
-    const matrix = createRandomMatrix(size, seed, value_min, value_max);
-    seed = 2 * seed;
-    const matrix2 = createRandomMatrix(size, seed, value_min, value_max);
-    return multiplyMatrix(matrix, matrix2);
+    eventHubMessages.forEach(message => {
+        const matrix = createRandomMatrix(size, seed, value_min, value_max);
+        seed = 2 * seed;
+        const matrix2 = createRandomMatrix(size, seed, value_min, value_max);
+        multiplyMatrix(matrix, matrix2);
+    });
 }

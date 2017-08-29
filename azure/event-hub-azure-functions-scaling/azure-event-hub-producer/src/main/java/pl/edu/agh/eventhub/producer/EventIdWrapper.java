@@ -1,9 +1,9 @@
 package pl.edu.agh.eventhub.producer;
 
-class EventIdWrapper {
+public class EventIdWrapper {
     private final Integer value;
 
-    EventIdWrapper(Integer value) {
+    public EventIdWrapper(Integer value) {
         this.value = value;
     }
 

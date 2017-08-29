@@ -2,8 +2,10 @@ package pl.edu.agh.eventhub.producer;
 
 import com.microsoft.azure.eventhubs.EventData;
 import com.microsoft.azure.eventhubs.EventHubClient;
+import com.microsoft.azure.servicebus.ServiceBusException;
 
-import java.util.stream.IntStream;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class EventProducer {
     private final EventHubClient eventHubClient;
@@ -12,24 +14,16 @@ public class EventProducer {
         this.eventHubClient = eventHubClient;
     }
 
-    public void pushEvents(int numberOfEvents) {
-        IntStream
-                .range(0, numberOfEvents)
-                .forEach(this::publishEvent);
-    }
-
-    private void publishEvent(int eventId) {
+    public void pushEvents(Collection<EventIdWrapper> events) {
         try {
-            final EventData eventData = new EventData(messageFromValue(eventId));
-            eventHubClient.send(eventData).get();
-        } catch (Exception e) {
-            throw new RuntimeException("Couldn't send message", e);
+            eventHubClient.sendSync(events.stream().map(this::asEventData).collect(Collectors.toList()));
+        } catch (ServiceBusException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private byte[] messageFromValue(Integer eventId) {
-        final EventIdWrapper eventIdWrapper = new EventIdWrapper(eventId);
-        return JsonSerializer.writeValueAsJsonByteArray(eventIdWrapper);
+    private EventData asEventData(EventIdWrapper eventId) {
+        return new EventData(JsonSerializer.writeValueAsJsonByteArray(eventId));
     }
 
 }
