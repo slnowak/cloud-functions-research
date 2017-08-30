@@ -1,19 +1,12 @@
 library("ggplot2")
 library("scales")
 
-png(filename="azure-eventhub-hosts.png", width=640, height=480)
+png(filename="azure-eventhub-hosts.png", width=800, height=600)
 
-dat = read.csv("hosts.csv", sep=';')
-dat$Time = as.POSIXct(dat$Time, format = "%Y-%m-%dT%H:%M:%S")
+dat = read.csv("hosts.csv")
+dat$time = as.POSIXct(dat$time, format = "%Y-%m-%dT%H:%M:%OSZ")
 
-ggplot(data=dat, aes(x=Time, y=Value, group=1)) +
-geom_line(colour="black", size=0.5) +
-   scale_x_datetime(labels = date_format("%Y-%m-%dT%H:%M"), breaks = pretty_breaks(n=10)) +
-   scale_y_continuous(breaks=pretty_breaks(n=10)) +
-   theme(plot.margin = unit(c(1,1,1,1), "cm")) +
-   labs(x="Czas (hh:mm)") +
-   labs(y="Liczba instancji funkcji") +
-   geom_area(aes(y=Value))
-
-
-
+ggplot(dat, aes(time, count)) +
+geom_bar(stat="identity") +
+theme(plot.margin = unit(c(1,1,1,1), "cm")) + theme_bw(base_size=18) +
+labs(x = "Czas wykonania testu (hh:mm)", y = "Ilość instancji funkcji")
