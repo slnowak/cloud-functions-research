@@ -1,10 +1,13 @@
 library("ggplot2")
 library("scales")
 
+
 png(filename="aws-data-intensive-barplot.png", width=640, height=480)
 
 dat = read.csv("barplot.csv")
 dat$time = as.POSIXct(dat$time, format = "%Y-%m-%dT%H:%M:%OSZ")
+#dat$name= factor(dat$name,levels=sort(levels(dat$name), TRUE))
+
 
 ggplot(dat, aes(time, duration)) +
 geom_bar(stat="identity", aes(fill=name)) +
