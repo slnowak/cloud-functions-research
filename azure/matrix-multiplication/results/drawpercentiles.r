@@ -14,3 +14,4 @@ labs(x = "Czas (hh:mm)", y = "Czas wykonania (ms)", color = "Percentyle") +
 geom_line(aes(y = p50, color = "p50")) +
 geom_line(aes(y = p99, color = "p99"))
 
+
